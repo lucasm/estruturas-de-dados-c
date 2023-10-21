@@ -1,2 +1,1 @@
-# estruturas-de-dados-c
-Estruturas de Dados em C
+# Estruturas de Dados em C
