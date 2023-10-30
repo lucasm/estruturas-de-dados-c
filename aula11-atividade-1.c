@@ -23,7 +23,7 @@ d) Definir um bloco de instruções que receba um setor e devolva os produtos de
 
 e) Definir um bloco de instruções que calcule e devolva o total de capital investido em produtos do supermercado.
 
-f) Sair do Programa.
+f) Sair do programa.
 
 */
 
