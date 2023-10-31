@@ -46,7 +46,7 @@ struct Apartamento
 // Declarar vetor de estruturas global para condomínio com 6 apartamentos
 struct Apartamento Condominio[6];
 
-// Inserir dados no vetor de estruturas, exceto campo valor
+// Inserir dados no vetor de estruturas, exceto o valor
 void inserirDados()
 {
   for (int i = 0; i < 6; i++)
@@ -84,6 +84,7 @@ float areaTotal()
   return areaTotal;
 }
 
+// Cacula o valor a ser pago por apto / mês dependendo da área do apartamento
 void calcularValor(float areaTotal)
 {
   float valorTotalDespesas, valorPago;
