@@ -146,8 +146,9 @@ int main()
 
 /*
 
-Neste exemplo, a função inserirNoFinal é usada para inserir elementos na lista encadeada. Em seguida, é demonstrado o uso da função retira_prefixo para remover os primeiros 'n' nós da lista e exibir o resultado antes e depois da remoção. Por fim, a função liberarLista é utilizada para liberar a memória alocada para a lista encadeada.
+Aprendizado:
 
-Este código cria uma lista inicial com elementos de 1.5 até 12.0 e remove os primeiros 5 nós da lista. Você pode ajustar os valores e o número de elementos para testar diferentes cenários.
+Criei a função inserirNoFinal pra inserir elementos na lista encadeada. A função retira_prefixo para remover os primeiros 'n' nós da lista e exibir o resultado antes e depois da remoção. Por fim, a função liberarLista é utilizada para liberar a memória alocada para a lista encadeada.
+
 
 */

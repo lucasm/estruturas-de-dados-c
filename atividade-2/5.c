@@ -6,18 +6,18 @@
 
 #define MAX_SIZE 100
 
-// Definição da estrutura da pilha
-struct Stack
+// estrutura da PILHA
+typedef struct Stack
 {
   int top;
   unsigned capacity;
   char *array;
-};
+} Stack;
 
-// Função para criar uma nova pilha
-struct Stack *createStack(unsigned capacity)
+// Criar nova pilha
+Stack *createStack(unsigned capacity)
 {
-  struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
+  Stack *stack = (Stack *)malloc(sizeof(Stack));
   stack->capacity = capacity;
   stack->top = -1;
   stack->array = (char *)malloc(stack->capacity * sizeof(char));
@@ -25,46 +25,46 @@ struct Stack *createStack(unsigned capacity)
 }
 
 // Função para verificar se a pilha está cheia
-int isFull(struct Stack *stack)
+int isFull(Stack *stack)
 {
   return stack->top == stack->capacity - 1;
 }
 
-// Função para verificar se a pilha está vazia
-int isEmpty(struct Stack *stack)
+//  vazia
+int isEmpty(Stack *stack)
 {
   return stack->top == -1;
 }
 
-// Função para empilhar um elemento na pilha
-void push(struct Stack *stack, char item)
+// empilhar elemento na pilha
+void push(Stack *stack, char item)
 {
   if (isFull(stack))
     return;
   stack->array[++stack->top] = item;
 }
 
-// Função para desempilhar um elemento da pilha
-char pop(struct Stack *stack)
+// desempilhar elemento da pilha
+char pop(Stack *stack)
 {
   if (isEmpty(stack))
     return '\0';
   return stack->array[stack->top--];
 }
 
-// Função para inverter a string usando pilha
+// inverter string usando pilha
 void reverseString(char *string)
 {
   int length = strlen(string);
-  struct Stack *stack = createStack(length);
+  Stack *stack = createStack(length);
 
-  // Empilhando os caracteres da string na pilha
+  // empilhando os caracteres da string na pilha
   for (int i = 0; i < length; i++)
   {
     push(stack, string[i]);
   }
 
-  // Desempilhando e reconstruindo a string invertida
+  // desempilhando e reconstruindo a string invertida
   for (int i = 0; i < length; i++)
   {
     string[i] = pop(stack);
@@ -81,7 +81,7 @@ int main()
   printf("Digite uma string: ");
   fgets(input, MAX_SIZE, stdin);
 
-  // Removendo o caractere de nova linha (se houver)
+  // removendo o caractere de nova linha (se houver)
   input[strcspn(input, "\n")] = '\0';
 
   printf("String invertida: ");
@@ -89,4 +89,20 @@ int main()
   printf("%s\n", input);
 
   return 0;
+
+  /*
+
+  Aprendizados:
+
+  Crie uma pilha, que é uma estrutura de dados que segue o princípio LIFO (Last In, First Out), ou seja, o último elemento a entrar é o primeiro a sair!!!
+
+  Para inverter a string, basta empilhar os caracteres da string e desempilhá-los em ordem inversa, reconstruindo a string invertida.
+
+  *** MAX_SIZE é uma constante que define o tamanho máximo da string, que é 100.
+
+  *** fgets(input, MAX_SIZE, stdin) é uma função que lê uma string do usuário e armazena na variável input.
+
+  *** stdin é um ponteiro para o arquivo de entrada padrão, que é o teclado.
+
+  */
 }

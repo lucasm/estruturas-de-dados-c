@@ -5,39 +5,42 @@
 
 typedef struct lista
 {
-  int info;
+  int data;
   struct lista *prox;
 } Lista;
 
-Lista *insere(Lista *l, int i)
+// insere um elemento no início da lista
+Lista *inserir(Lista *l, int i)
 {
   Lista *novo = (Lista *)malloc(sizeof(Lista));
-  novo->info = i;
+  novo->data = i;
   novo->prox = l;
   return novo;
 }
 
-void imprime(Lista *l)
+void imprimir(Lista *l)
 {
   Lista *p = l;
   while (p != NULL)
   {
-    printf("%d ", p->info);
+    printf("%d ", p->data);
     p = p->prox;
   }
   printf("\n");
 }
 
-Lista *buscaRemove(Lista *l, int i)
+// busca um elemento e remove o nó à direita
+Lista *buscarRemover(Lista *l, int i)
 {
   Lista *p = l;
+
   while (p != NULL)
   {
-    if (p->info == i && p->prox != NULL) // Verifica se encontrou o elemento e se existe um nó à direita
+    if (p->data == i && p->prox != NULL) // se elemento existe e com nó na direita
     {
-      Lista *temp = p->prox; // Armazena o nó à direita do elemento encontrado
-      p->prox = temp->prox;  // Conecta o elemento atual ao próximo do elemento à direita
-      free(temp);            // Libera o nó à direita do elemento encontrado
+      Lista *temp = p->prox; // armazena o nó da direita
+      p->prox = temp->prox;  // conecta o elemento atual ao próximo do nó da direita
+      free(temp);            // libera nó da direita
       return l;
     }
     p = p->prox;
@@ -49,18 +52,28 @@ int main()
 {
   Lista *l = NULL;
 
-  l = insere(l, 1);
-  l = insere(l, 2);
-  l = insere(l, 3);
-  l = insere(l, 4);
-  l = insere(l, 5);
-  l = insere(l, 6);
+  l = inserir(l, 1);
+  l = inserir(l, 2);
+  l = inserir(l, 3);
+  l = inserir(l, 4);
+  l = inserir(l, 5);
+  l = inserir(l, 6);
 
-  imprime(l);
+  imprimir(l);
 
-  l = buscaRemove(l, 3);
+  l = buscarRemover(l, 4);
 
-  imprime(l);
+  imprimir(l);
 
   return 0;
+
+  /*
+
+  Aprendizados:
+
+  Criei a função buscaRemover() que itera a lista até encontrar o alvo. Ao encontrar, verifica se existe nó na direita. Se existir, conecta o elemento atual ao próximo do elemento da direita e libera o nó da direita que ficou isolado. Senão retorna a lista original.
+
+  *** free(temp) é a função nativa do C para liberar memória em uso.
+
+  */
 }

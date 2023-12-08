@@ -4,179 +4,138 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define STACK_SIZE 10
-#define QUEUE_SIZE 100
+#define MAX_SIZE 10
 
-// Definição da estrutura de pilha
 typedef struct
 {
-  char items[STACK_SIZE];
-  int top;
-} Stack;
+  char itens[MAX_SIZE];
+  int topo;
+} Pilha;
 
-// Definição da estrutura de fila
 typedef struct
 {
-  char items[QUEUE_SIZE];
-  int front, rear;
-} Queue;
+  char itens[MAX_SIZE];
+  int frente, tras;
+} Fila;
 
-// Função para inicializar a pilha
-void initializeStack(Stack *stack)
+void inicializarPilha(Pilha *p)
 {
-  stack->top = -1;
+  p->topo = -1;
 }
 
-// Função para verificar se a pilha está vazia
-int isStackEmpty(Stack *stack)
+int estaVaziaPilha(Pilha *p)
 {
-  return (stack->top == -1);
+  return p->topo == -1;
 }
 
-// Função para verificar se a pilha está cheia
-int isStackFull(Stack *stack)
+int estaCheiaPilha(Pilha *p)
 {
-  return (stack->top == STACK_SIZE - 1);
+  return p->topo == MAX_SIZE - 1;
 }
 
-// Função para empilhar um caractere na pilha
-void push(Stack *stack, char value)
+void empilhar(Pilha *p, char item)
 {
-  if (isStackFull(stack))
+  if (estaCheiaPilha(p))
   {
-    printf("Erro: Pilha cheia\n");
+    printf("Erro: a pilha está cheia\n");
+    return;
   }
-  else
-  {
-    stack->items[++(stack->top)] = value;
-  }
+  p->itens[++(p->topo)] = item;
 }
 
-// Função para desempilhar um caractere da pilha
-char pop(Stack *stack)
+char desempilhar(Pilha *p)
 {
-  if (isStackEmpty(stack))
+  if (estaVaziaPilha(p))
   {
-    printf("Erro: Pilha vazia\n");
+    printf("Erro: a pilha está vazia\n");
     return '\0';
   }
-  else
+  return p->itens[(p->topo)--];
+}
+
+void inicializarFila(Fila *f)
+{
+  f->frente = 0;
+  f->tras = -1;
+}
+
+int estaVaziaFila(Fila *f)
+{
+  return f->tras < f->frente;
+}
+
+int estaCheiaFila(Fila *f)
+{
+  return f->tras == MAX_SIZE - 1;
+}
+
+void enfileirar(Fila *f, char item)
+{
+  if (estaCheiaFila(f))
   {
-    return stack->items[(stack->top)--];
+    printf("Erro: a fila está cheia\n");
+    return;
   }
+  f->itens[++(f->tras)] = item;
 }
 
-// Função para inicializar a fila
-void initializeQueue(Queue *queue)
+char desenfileirar(Fila *f)
 {
-  queue->front = queue->rear = -1;
-}
-
-// Função para verificar se a fila está vazia
-int isQueueEmpty(Queue *queue)
-{
-  return (queue->front == -1);
-}
-
-// Função para verificar se a fila está cheia
-int isQueueFull(Queue *queue)
-{
-  return ((queue->rear + 1) % QUEUE_SIZE == queue->front);
-}
-
-// Função para enfileirar um caractere na fila
-void enqueue(Queue *queue, char value)
-{
-  if (isQueueFull(queue))
+  if (estaVaziaFila(f))
   {
-    printf("Erro: Fila cheia\n");
-  }
-  else
-  {
-    if (isQueueEmpty(queue))
-    {
-      queue->front = 0;
-    }
-    queue->rear = (queue->rear + 1) % QUEUE_SIZE;
-    queue->items[queue->rear] = value;
-  }
-}
-
-// Função para desenfileirar um caractere da fila
-char dequeue(Queue *queue)
-{
-  char value;
-  if (isQueueEmpty(queue))
-  {
-    printf("Erro: Fila vazia\n");
+    printf("Erro: a fila está vazia\n");
     return '\0';
   }
-  else
-  {
-    value = queue->items[queue->front];
-    if (queue->front == queue->rear)
-    {
-      queue->front = queue->rear = -1;
-    }
-    else
-    {
-      queue->front = (queue->front + 1) % QUEUE_SIZE;
-    }
-    return value;
-  }
+  return f->itens[(f->frente)++];
 }
 
 int main()
 {
-  Stack stack;
-  Queue queue;
-  char input;
+  Pilha pilha;
+  Fila fila;
 
-  initializeStack(&stack);
-  initializeQueue(&queue);
+  inicializarPilha(&pilha);
+  inicializarFila(&fila);
 
-  printf("Digite os caracteres (insira 'COMPUTACAO' para encerrar): \n");
+  char entrada;
+  char sequencia[] = "COMPUTACAO";
+  int indice_sequencia = 0;
+
+  printf("Digite os caracteres (max. 10) ou 'COMPUTACAO' para encerrar:\n");
 
   do
   {
-    scanf(" %c", &input);
+    scanf(" %c", &entrada);
+    enfileirar(&fila, entrada);
 
-    if (!isStackFull(&stack))
+    if (entrada == sequencia[indice_sequencia])
     {
-      push(&stack, input);
+      empilhar(&pilha, entrada);
+      indice_sequencia++;
     }
     else
     {
-      enqueue(&queue, input);
-      char removed = pop(&stack);
-      enqueue(&queue, removed);
-    }
-
-    if (!isQueueEmpty(&queue))
-    {
-      char removed_from_queue = dequeue(&queue);
-      printf("%c", removed_from_queue);
-      if (removed_from_queue == 'C')
+      indice_sequencia = 0;
+      while (!estaVaziaPilha(&pilha))
       {
-        char peek_stack = stack.items[stack.top];
-        if (peek_stack == 'O')
-        {
-          char output;
-          for (int i = stack.top; i >= 0; --i)
-          {
-            output = pop(&stack);
-            printf("%c", output);
-            if (output == 'C')
-            {
-              break;
-            }
-          }
-          printf("\n");
-          break;
-        }
+        char removido = desempilhar(&pilha);
+        enfileirar(&fila, removido);
       }
     }
-  } while (1);
+
+    if (indice_sequencia == strlen(sequencia))
+    {
+      printf("Sequencia 'COMPUTACAO' encontrada!\n");
+      break;
+    }
+  } while (!estaCheiaFila(&fila));
+
+  printf("Conteudo da fila: ");
+  while (!estaVaziaFila(&fila))
+  {
+    printf("%c ", desenfileirar(&fila));
+  }
+  printf("\n");
 
   return 0;
 }

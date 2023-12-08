@@ -1,65 +1,95 @@
-// 1. Sejam duas listas encadeadas, desenvolva uma função que recebe duas listas encadeadas e retorne a lista encadeada resultante da concatenação.
+// 1. Sejam duas listas encadeadas, desenvolva uma função que recebe duas listas encadeadas e retorne a lista encadeada resultante da concatenação;
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definição da estrutura da lista
-typedef struct lista
+// Estrutura do nó
+typedef struct Node
 {
-  int info;
-  struct lista *prox;
-} Lista;
+  int valor;
+  struct Node *prox;
+} Node;
 
-// Função que concatena duas listas
-Lista *concatena(Lista *l1, Lista *l2)
+// Adicionar elemento no final da lista
+void append(Node **head_ref, int new_data)
 {
-  Lista *p = l1;
-  while (p->prox != NULL)
+  Node *new_node = (Node *)malloc(sizeof(Node));
+  Node *last = *head_ref;
+
+  new_node->valor = new_data;
+  new_node->prox = NULL;
+
+  if (*head_ref == NULL)
   {
-    p = p->prox;
+    *head_ref = new_node;
+    return;
   }
-  p->prox = l2;
+
+  while (last->prox != NULL)
+  {
+    last = last->prox;
+  }
+
+  last->prox = new_node;
+}
+
+// Concatenar duas listas encadeadas
+Node *concatenar(Node *l1, Node *l2)
+{
+
+  Node *current = l1;
+  while (current->prox != NULL)
+  {
+    current = current->prox;
+  }
+
+  current->prox = l2;
   return l1;
 }
 
-// Função que imprime a lista
-void imprime(Lista *l)
+// Imprimir lista encadeada
+void imprimir(Node *node)
 {
-  Lista *p = l;
-  while (p != NULL)
+  while (node != NULL)
   {
-    printf("%d ", p->info);
-    p = p->prox;
+    printf("%d ", node->valor);
+    node = node->prox;
   }
   printf("\n");
 }
 
-// Função que insere um elemento na lista
-Lista *insere(Lista *l, int i)
-{
-  Lista *novo = (Lista *)malloc(sizeof(Lista));
-  novo->info = i;
-  novo->prox = l;
-  return novo;
-}
-
 int main()
 {
-  Lista *l1 = NULL;
-  Lista *l2 = NULL;
+  Node *l1 = NULL;
+  Node *l2 = NULL;
 
-  l1 = insere(l1, 1);
-  l1 = insere(l1, 2);
-  l1 = insere(l1, 3);
-  l2 = insere(l2, 4);
-  l2 = insere(l2, 5);
-  l2 = insere(l2, 6);
+  append(&l1, 1);
+  append(&l1, 2);
+  append(&l1, 3);
+  append(&l2, 4);
+  append(&l2, 5);
+  append(&l2, 6);
 
-  imprime(l1);
-  imprime(l2);
+  printf("Lista 1: ");
+  imprimir(l1);
+  printf("Lista 2: ");
+  imprimir(l2);
 
-  Lista *l3 = concatena(l1, l2);
-  imprime(l3);
+  l1 = concatenar(l1, l2);
+
+  printf("Lista concatenada: ");
+  imprimir(l1);
 
   return 0;
+
+  /*
+
+  Aprendizado: Concatenar listas encadeadas
+
+  Usei uma função "append" convencional para inserir itens no final da lista encadeada. Logo, concatenar listas encadeadas fica fácil, basta percorrer a lista 1 até o último nó e fazer esse último nó apontar para o primeiro nó da lista 2.
+
+  *** Colocar o asterisco (*) no início da declaração de função indica que a função retorna um ponteiro para um nó. Nesse caso é o primeiro nó da lista concatenada, que é o primeiro nó da então lista 1.
+
+  *** malloc() é a função nativa do C que aloca memória dinamicamente.  Recebe como parâmetro o tamanho da memória que será alocada. Nesse caso, o tamanho da memória é o tamanho da estrutura Node.
+  */
 }

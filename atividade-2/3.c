@@ -3,37 +3,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definição da estrutura da lista
 typedef struct lista
 {
-  int info;
+  int valor;
   struct lista *ant;
   struct lista *prox;
 } Lista;
 
-// Função que imprime a lista
-void imprime(Lista *l)
+void imprimir(Lista *l)
 {
   Lista *p = l;
   while (p != NULL)
   {
-    printf("%d ", p->info);
+    printf("%d ", p->valor);
     p = p->prox;
   }
   printf("\n");
 }
+void imprimirReverso(Lista *l)
+{
+  Lista *p = l;
+  while (p->prox != NULL)
+  {
+    p = p->prox;
+  }
 
-// Função que insere um elemento na lista
-Lista *insere(Lista *l, int i)
+  while (p != NULL)
+  {
+    printf("%d ", p->valor);
+    p = p->ant;
+  }
+  printf("\n");
+}
+
+Lista *inserir(Lista *l, int i)
 {
   Lista *novo = (Lista *)malloc(sizeof(Lista));
-  novo->info = i;
+  novo->valor = i;
   novo->prox = NULL;
   novo->ant = NULL;
 
   if (l == NULL)
   {
-    // Se a lista estiver vazia, o novo elemento será o primeiro e o último
+    // se a lista for vazia, o novo elemento será o primeiro e o último
     l = novo;
   }
   else
@@ -43,7 +55,7 @@ Lista *insere(Lista *l, int i)
     {
       aux = aux->prox;
     }
-    // Conecta o novo elemento ao último elemento da lista
+    // conecta o novo elemento ao último elemento da lista
     aux->prox = novo;
     novo->ant = aux;
   }
@@ -55,12 +67,13 @@ int main()
 {
   Lista *l = NULL;
 
-  l = insere(l, 1);
-  l = insere(l, 2);
-  l = insere(l, 3);
-  l = insere(l, 4);
-  l = insere(l, 5);
-  l = insere(l, 6);
+  l = inserir(l, 1);
+  l = inserir(l, 2);
+  l = inserir(l, 3);
+  l = inserir(l, 4);
+  l = inserir(l, 5);
+  l = inserir(l, 6);
 
-  imprime(l);
+  imprimir(l);
+  imprimirReverso(l); // provando que a lista é duplamente encadeada (imprimindo de trás pra frente) usando o ponteiro ant
 }
