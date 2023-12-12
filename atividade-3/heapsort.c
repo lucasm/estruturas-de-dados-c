@@ -3,27 +3,30 @@
 // função criar um heap máximo
 void heapify(int arr[], int n, int i)
 {
-  // inicializa o maior como raiz
-  int largest = i;
+  // inicializa o maior como raiz do heap
+  int largest = i;       // raiz
   int left = 2 * i + 1;  // filho da esquerda
   int right = 2 * i + 2; // filho da direita
 
-  // se o filho da esquerda for maior que a raiz
+  // filho esquerda > raiz atual
   if (left < n && arr[left] > arr[largest])
-    largest = left;
+  {
+    largest = left; // troca raiz
+  }
 
-  // se o filho da direita for maior que a raiz
+  // filho direita > raiz atual
   if (right < n && arr[right] > arr[largest])
-    largest = right;
+  {
+    largest = right; // troca raiz
+  }
 
-  // se o maior não for a raiz
+  // maior não for a raiz atual
   if (largest != i)
   {
-    int temp = arr[i];
+    int temp = arr[i]; // troca a raiz com o maior
     arr[i] = arr[largest];
     arr[largest] = temp;
-    heapify(arr, n, largest);
-    // chama a função recursivamente para o subárvore afetado
+    heapify(arr, n, largest); // chama recursivamente para a subárvore afetada
   }
 }
 
@@ -39,14 +42,10 @@ void heapSort(int arr[], int n)
   // extrai um elemento por vez do heap
   for (int i = n - 1; i > 0; i--)
   {
-    // move a raiz atual para o final
-    int temp = arr[0];
-    // troca o primeiro elemento com o último
-    arr[0] = arr[i];
-    // coloca o maior elemento na parte de trás
-    arr[i] = temp;
-    // chama a função heapify na heap reduzida
-    heapify(arr, i, 0);
+    int temp = arr[0];  // move a raiz atual para o final
+    arr[0] = arr[i];    // troca o primeiro elemento com o último
+    arr[i] = temp;      // coloca o maior elemento na parte de trás
+    heapify(arr, i, 0); // chama a função heapify na heap reduzida
   }
 }
 
