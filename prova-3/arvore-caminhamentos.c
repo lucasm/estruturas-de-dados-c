@@ -2,7 +2,11 @@
 
 Considere uma árvore binária de busca com os seguintes valores: 50, 30, 70, 20, 40, 60, 80.
 
-Implemente um código em C para realizar os três tipos de percurso na árvore: pré-ordem, em ordem e pós-ordem.
+Implemente um código em C para realizar os três tipos de percurso na árvore:
+
+- pré-ordem
+- ordem
+- pós-ordem
 
 */
 
@@ -16,6 +20,7 @@ struct Node
   struct Node *right;
 };
 
+// Função para criar um novo nó
 struct Node *createNode(int value)
 {
   struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
@@ -25,6 +30,7 @@ struct Node *createNode(int value)
   return newNode;
 }
 
+// Função para inserir um novo nó na árvore
 struct Node *insert(struct Node *node, int value)
 {
   if (node == NULL)
@@ -44,6 +50,7 @@ struct Node *insert(struct Node *node, int value)
   return node;
 }
 
+// Função para percorrer a árvore em pré-ordem
 void preOrderTraversal(struct Node *node)
 {
   if (node != NULL)
@@ -54,6 +61,7 @@ void preOrderTraversal(struct Node *node)
   }
 }
 
+// Função para percorrer a árvore em ordem
 void inOrderTraversal(struct Node *node)
 {
   if (node != NULL)
@@ -64,6 +72,7 @@ void inOrderTraversal(struct Node *node)
   }
 }
 
+// Função para percorrer a árvore em pós-ordem
 void postOrderTraversal(struct Node *node)
 {
   if (node != NULL)
