@@ -4,9 +4,9 @@ Considere uma árvore binária de busca com os seguintes valores: 50, 30, 70, 20
 
 Implemente um código em C para realizar os três tipos de percurso na árvore:
 
-- pré-ordem
-- ordem
-- pós-ordem
+- pré-ordem (root, left, right)
+- ordem (left, root, right) ou seja o percurso em ordem
+- pós-ordem (left, right, root) ou seja o percurso em ordem inversa
 
 */
 
