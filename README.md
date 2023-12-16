@@ -7,6 +7,8 @@ Aqui você vai encontrar:
 - Sintaxe do C
 - Tipos de dados
 - Operações e operadores
+- Loops
+- Funções
 - Listas lineares
 - Lista duplamente encadeadas
 - Listas circulares
@@ -16,3 +18,5 @@ Aqui você vai encontrar:
 - Recursividade
 - Árvores
 - Algoritmos de Ordenação
+
+Sinta-se livre para estudar e colaborar!
