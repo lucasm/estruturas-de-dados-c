@@ -53,3 +53,4 @@ dkms.conf
 
 output/
 .DS_Store
+.vscode
