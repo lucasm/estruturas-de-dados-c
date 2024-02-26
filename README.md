@@ -1,4 +1,4 @@
-# Estruturas de Dados em C
+# Estruturas de Dados e Algoritmos em C
 
 Esse repositório contem códigos em Linguagem C que exemplificam, testam e implementam Estruturas de Dados comuns da programação.
 
